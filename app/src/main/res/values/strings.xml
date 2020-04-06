@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Rates</string>
+    <string name="error_loading_data">Error loading data</string>
+    <string name="currency_image">Currency image</string>
+</resources>
