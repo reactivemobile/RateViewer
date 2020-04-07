@@ -14,11 +14,11 @@ import javax.inject.Singleton
 class RatesNetworkModule {
 
     private val responseStringEur =
-        """{"baseCurrency":"EUR","rates":{"AUD":1.598,"BGN":1.979}}"""
+        """{"baseCurrency":"EUR","rates":{"AUD":2,"BGN":4}}"""
     private val responseStringAud =
-        """{"baseCurrency":"AUD","rates":{"BGN":1.444, EUR:0.678}}"""
+        """{"baseCurrency":"AUD","rates":{"BGN":2, EUR:0.5}}"""
     private val responseStringBgn =
-        """{"baseCurrency":"BGN","rates":{"AUD":4.554,"EUR":8.999}}"""
+        """{"baseCurrency":"BGN","rates":{"AUD":0.5,"EUR":0.25}}"""
 
     private val responseMap = mapOf<String, String>(
         "EUR" to responseStringEur,
