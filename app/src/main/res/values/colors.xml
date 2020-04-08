@@ -8,6 +8,7 @@
     <color name="secondary_text">#757575</color>
     <color name="icons">#FFFFFF</color>
     <color name="divider">#BDBDBD</color>
+    <color name="button_pressed">#989797</color>
     <color name="translucent">#55000000</color>
     <color name="transparent">#00000000</color>
 </resources>
