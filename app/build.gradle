@@ -107,5 +107,8 @@ dependencies {
     testImplementation "androidx.arch.core:core-testing:2.1.0"
     testImplementation "androidx.test:core:$androidx_test_version"
     testImplementation "junit:junit:$junit_version"
+    testImplementation "androidx.test.ext:junit:$test_runner_version"
+    testImplementation 'org.robolectric:robolectric:4.3'
+
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_version"
 }

@@ -24,8 +24,8 @@ class ResponseToRateDataMapper {
         return RateData(baseCurrency, entries)
     }
 
-    private fun getPath(it: String?): String {
-        return "https://github.com/transferwise/currency-flags/raw/master/src/flags/$it.png".toLowerCase(
+    private fun getPath(currencyCode: String?): String {
+        return "https://github.com/transferwise/currency-flags/raw/master/src/flags/$currencyCode.png".toLowerCase(
             Locale.ENGLISH
         )
     }

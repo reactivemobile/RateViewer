@@ -1,7 +1,5 @@
 package com.reactivemobile.app.presentation.ui.rates.viewmodel
 
-import android.text.Editable
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -41,7 +39,7 @@ class RatesViewModel(private val fetchRatesUseCase: FetchRatesUseCase) : ViewMod
         }
     }
 
-    private fun fetchRates(baseCurrency: String) {
+    fun fetchRates(baseCurrency: String) {
         viewModelScope.launch {
             val rateData = fetchRatesUseCase.getRates(baseCurrency)
 
@@ -49,18 +47,16 @@ class RatesViewModel(private val fetchRatesUseCase: FetchRatesUseCase) : ViewMod
         }
     }
 
-    fun setBaseAmount(amount: Editable?) {
-        if (amount != null) {
-            val amountNumber =
-                try {
-                    BigDecimal(if (amount.isEmpty()) 1.0 else amount.toString().toDouble())
-                } catch (exception: NumberFormatException) {
-                    BigDecimal(0)
-                }
+    fun setBaseAmount(amount: String) {
+        val amountNumber =
+            try {
+                BigDecimal(if (amount.isEmpty()) 1.0 else amount.toDouble())
+            } catch (exception: NumberFormatException) {
+                BigDecimal(0)
+            }
 
-            val rateData = fetchRatesUseCase.setBaseAmount(amountNumber)
-            handleRateDataResponse(rateData)
-        }
+        val rateData = fetchRatesUseCase.setBaseAmount(amountNumber)
+        handleRateDataResponse(rateData)
     }
 
     private fun handleRateDataResponse(rateData: RateData) {

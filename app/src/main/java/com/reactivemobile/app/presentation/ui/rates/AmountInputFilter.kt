@@ -9,17 +9,20 @@ class AmountInputFilter : InputFilter {
     private val pattern = Pattern.compile("^[0-9]*(\\.)?[0-9]*\$")
 
     override fun filter(
-        source: CharSequence?,
+        source: CharSequence,
         start: Int,
         end: Int,
-        dest: Spanned?,
+        dest: Spanned,
         dstart: Int,
         dend: Int
     ): CharSequence? {
 
-        val output = dest.toString().replaceRange(dstart, dend, source!!.subSequence(start, end))
-
         var ret: String? = null
+
+        val destString = dest.toString()
+        val sourceSubSequence = source.subSequence(start, end)
+
+        val output = destString.replaceRange(dstart, dend, sourceSubSequence)
 
         if (output == ".") {
             ret = "0."
@@ -27,8 +30,9 @@ class AmountInputFilter : InputFilter {
 
         val matcher = pattern.matcher(output)
         if (!matcher.matches()) {
-            ret= ""
+            ret = ""
         }
+
 
         return ret
     }
