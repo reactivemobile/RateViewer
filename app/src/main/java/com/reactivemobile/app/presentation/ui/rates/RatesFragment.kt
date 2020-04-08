@@ -61,6 +61,7 @@ class RatesFragment : Fragment() {
     private fun setupView() {
         recycler_view.adapter = adapter
         base_currency_view.setTextChangedListener { e -> viewModel.setBaseAmount(e.toString()) }
+        lifecycle.addObserver(viewModel)
     }
 
     private fun fetchRates(currency: String? = null) {

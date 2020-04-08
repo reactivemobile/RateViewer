@@ -1,8 +1,6 @@
 package com.reactivemobile.app.presentation.ui.rates.viewmodel
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.reactivemobile.app.domain.FetchRatesUseCase
 import com.reactivemobile.app.domain.RateData
 import kotlinx.coroutines.launch
@@ -12,18 +10,23 @@ import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.TimeUnit
 
-class RatesViewModel(private val fetchRatesUseCase: FetchRatesUseCase) : ViewModel() {
+class RatesViewModel(private val fetchRatesUseCase: FetchRatesUseCase) : ViewModel(),
+    LifecycleObserver {
     val rates = MutableLiveData<RateData>()
 
     val error = MutableLiveData<Boolean>()
 
     lateinit var scheduledFuture: ScheduledFuture<*>
 
+    private var isPaused = false
+
     private var baseCurrency = "EUR"
 
     private val timerTask = object : TimerTask() {
         override fun run() {
-            fetchRates(baseCurrency)
+            if (!isPaused) {
+                fetchRates(baseCurrency)
+            }
         }
     }
 
@@ -57,6 +60,16 @@ class RatesViewModel(private val fetchRatesUseCase: FetchRatesUseCase) : ViewMod
 
         val rateData = fetchRatesUseCase.setBaseAmount(amountNumber)
         handleRateDataResponse(rateData)
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    fun paused() {
+        isPaused = true
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    fun resumed() {
+        isPaused = false
     }
 
     private fun handleRateDataResponse(rateData: RateData) {
